@@ -1,0 +1,43 @@
+{
+  "name": "hotel-offer-orchestrator",
+  "version": "1.0.0",
+  "description": "Hotel Offer Orchestrator with Express, Temporal.io, Redis, and Docker Compose",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc --build",
+    "start": "node dist/index.js",
+    "dev": "nodemon --watch src -e ts --exec ts-node src/index.ts",
+    "worker": "ts-node src/worker.ts",
+    "clean": "rimraf dist"
+  },
+  "keywords": [
+    "temporal",
+    "express",
+    "redis",
+    "docker",
+    "orchestrator"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@temporalio/activity": "^1.11.0",
+    "@temporalio/client": "^1.11.0",
+    "@temporalio/worker": "^1.11.0",
+    "@temporalio/workflow": "^1.11.0",
+    "axios": "^1.7.9",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "ioredis": "^5.4.2",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.2",
+    "nodemon": "^3.1.9",
+    "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  }
+}
