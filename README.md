@@ -13,23 +13,23 @@ flowchart TD
     Client["Client / Postman"]
     Express["Express API Server"]
     TemporalClient["Temporal Client"]
-    TemporalServer["Temporal Server (Cluster / Auto-Setup)"]
+    TemporalServer["Temporal Server"]
     Worker["Temporal Worker"]
     SupplierA["Mock Supplier A"]
     SupplierB["Mock Supplier B"]
-    Redis[("Redis (Sorted Sets for Price Filtering)")]
+    Redis[("Redis - Sorted Sets")]
 
-    Client -->|1. GET /api/hotels?city=delhi| Express
-    Express -->|2. Check Redis cache| Redis
-    Express -->|3. On Cache Miss: Start Workflow| TemporalClient
-    TemporalClient -->|4. Trigger hotelAggregationWorkflow| TemporalServer
-    TemporalServer -->|5. Dispatch Activities| Worker
-    Worker -->|6. Fetch Supplier A (Parallel Activity)| SupplierA
-    Worker -->|6. Fetch Supplier B (Parallel Activity)| SupplierB
-    Worker -->|7. Deduplicate & Select Cheaper Price| Worker
-    Worker -->|8. Persist to Redis (ZSET)| Redis
-    Express -->|9. ZRANGEBYSCORE (Price Filter)| Redis
-    Express -->|10. Return Best Offers JSON| Client
+    Client -->|"1. GET /api/hotels?city=delhi"| Express
+    Express -->|"2. Check Redis cache"| Redis
+    Express -->|"3. On Cache Miss: Start Workflow"| TemporalClient
+    TemporalClient -->|"4. Trigger Workflow"| TemporalServer
+    TemporalServer -->|"5. Dispatch Activities"| Worker
+    Worker -->|"6. Fetch Supplier A (Parallel)"| SupplierA
+    Worker -->|"6. Fetch Supplier B (Parallel)"| SupplierB
+    Worker -->|"7. Deduplicate & Select Cheaper Price"| Worker
+    Worker -->|"8. Persist to Redis (ZSET)"| Redis
+    Express -->|"9. ZRANGEBYSCORE (Price Filter)"| Redis
+    Express -->|"10. Return Best Offers JSON"| Client
 ```
 
 ---
